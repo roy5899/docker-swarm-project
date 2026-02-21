@@ -1,0 +1,41 @@
+# AWS CLI and Credentials
+.aws/
+aws/
+awscliv2.zip
+*.zip
+
+# If you installed it via a Python virtual environment:
+venv/
+env/
+
+# =========================
+# Node.js (devops-sample-nest)
+# =========================
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+
+# =========================
+# Python (devops-sample-fast)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+env/
+.pytest_cache/
+
+# =========================
+# OS Generated Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# Ignore all environment variable files
+*.env
+.env.*
+
+# Allow example environment files to be tracked
+!.env.example
