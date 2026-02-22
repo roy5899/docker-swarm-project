@@ -47,7 +47,7 @@ jobs:
       - name: Build and Push FastAPI Image
         run: |
           # Change this path to wherever your Python Dockerfile lives
-          cd docker-proejct-main/python/ 
+          cd docker-project-main/python/ 
           docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-backend:${{ github.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-backend:${{ github.sha }}
 
