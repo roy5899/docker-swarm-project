@@ -1,0 +1,25 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  # This file prevents Promtail from re-reading old logs if the container restarts
+  filename: /tmp/positions.yaml
+
+clients:
+  # Since Loki is in the same Swarm stack, Docker's internal DNS routes this perfectly
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: docker_swarm_logs
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: docker
+          # Crucial: This points exactly to your new EBS volume log directory!
+          __path__: /mnt/data-drive/docker/containers/*/*log
+          
+    pipeline_stages:
+      # This built-in stage automatically unwraps Docker's native JSON log format
+      - docker: {}
