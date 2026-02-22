@@ -11,7 +11,8 @@ networks:
 volumes:
   client_a_data:
   client_b_data:
-
+  prometheus_data:   # Moved here!
+  grafana_data:      # Moved here!
 
 configs:
   client_a_config:
@@ -20,6 +21,7 @@ configs:
     external: true
   nginx_proxy_config:
     file: ./nginx.conf
+
 services:
   client-a-node-app:
     image: riturajroy589/devops-sample-nest:v1
@@ -59,11 +61,12 @@ services:
         parallelism: 1
         delay: 10s
         failure_action: rollback
-    healthcheck:
+    healthcheck:    # Fixed indentation!
       test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/health')\""]
       interval: 30s
       timeout: 10s
       retries: 3
+
   nginx:
     image: nginx:alpine
     networks:
@@ -78,13 +81,14 @@ services:
       placement:
         constraints:
           - node.role == manager
-# -------------------------------------------
+
+  # -------------------------------------------
   # MONITORING STACK
   # -------------------------------------------
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - /home/ubuntu/docker-project-main/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -100,7 +104,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
     ports:
-      - "3001:3000" # Mapped to 3001 so it doesn't clash with your NestJS app!
+      - "3001:3000" 
     deploy:
       placement:
         constraints:
@@ -113,10 +117,6 @@ services:
       - /var/run:/var/run:ro
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
+      # Removed the problematic /dev/disk mount
     deploy:
-      mode: global # This tells Swarm to put exactly ONE of these on every server
-
-volumes:
-  prometheus_data:
-  grafana_data:            
+      mode: global

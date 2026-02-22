@@ -70,9 +70,9 @@ jobs:
             # Update NestJS Service
             docker service update \
               --image ${{ secrets.DOCKER_USERNAME }}/nest-backend:${{ github.sha }} \
-              my_stack_nest_service_client-a-node-app
+              my_stack_service_client-a-node-app
             
             # Update FastAPI Service
             docker service update \
               --image ${{ secrets.DOCKER_USERNAME }}/fastapi-backend:${{ github.sha }} \
-              my_stack_nest_service_client-b-python-app
+              my_stack_service_client-b-python-app
