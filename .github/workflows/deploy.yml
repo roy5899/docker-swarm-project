@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push Nest Image
         run: |
           # Change this path to wherever your NestJS Dockerfile lives
-          cd /home/ubuntu/docker-project-main/nodejs/
+          cd /home/ubuntu/docker-project-main/nodejs
           docker build -t ${{ secrets.DOCKER_USERNAME }}/nest-backend:${{ github.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/nest-backend:${{ github.sha }}
 
@@ -47,7 +47,7 @@ jobs:
       - name: Build and Push FastAPI Image
         run: |
           # Change this path to wherever your Python Dockerfile lives
-          cd /home/ubuntu/docker-project-main/python/ 
+          cd /home/ubuntu/docker-project-main/python 
           docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-backend:${{ github.sha }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-backend:${{ github.sha }}
 
