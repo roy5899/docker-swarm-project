@@ -12,7 +12,7 @@ def health():
 @app.get("/hello")
 def hello():
     return {
-        "message": "Hello from FastAPI"
+        "message": "Hello from FastAPI. This is V2"
     }
 
 @app.get("/products/{product_id}")

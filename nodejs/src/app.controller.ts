@@ -16,7 +16,7 @@ export class AppController {
   @Get('hello')
   sayHello() {
     return {
-      message: 'Hello from NestJS'
+      message: 'Hello from NestJS. This is V2'
     };
   }
 
